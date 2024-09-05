@@ -21,7 +21,7 @@ Sprout is a tool you can use to speed up the process of organizing and creating 
 		+ [Version History](#version-history)
 
 ## HOW TO USE IT?
-To use Sprout you have to choose an option to use. To select the option you can either type the full option name or the option name in its short form (Given between the square brackets in the option list).
+To use Sprout you have to choose an option to use. To **select the option** you can either **type** the **full option name** or the **option name in its short form** (given between the square brackets in the option list).
 Here is a table showing all the option names, short forms and description.
 
 OPTION NAME|SHORT FORM|DESCRIPTION
