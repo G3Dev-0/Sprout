@@ -58,5 +58,5 @@ Version: *8.6.15*\
 Home page: https://docs.python.org/3/library/tkinter.html
 
 ## About [#](#table-of-contents)
-Made by G3Dev
+Made by G3Dev\
 v2.0 b06082025-0
