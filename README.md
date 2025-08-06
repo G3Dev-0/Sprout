@@ -47,15 +47,20 @@ Programming language\
 Version: *3.13.5*\
 Home page: https://www.python.org/
 
+- **tkinter**\
+Cross-platform graphical user interface toolkit\
+Version: *8.6.15*\
+Home page: https://docs.python.org/3/library/tkinter.html
+
 - **pydot**\
 Python interface to Graphviz's Dot\
 Version: *4.0.1*\
 Home page: https://github.com/pydot/pydot
 
-- **tkinter**\
-Cross-platform graphical user interface toolkit\
-Version: *8.6.15*\
-Home page: https://docs.python.org/3/library/tkinter.html
+- **pillow**\
+Python Imaging Library (Fork)\
+Version: *11.3.0*\
+Home page: https://python-pillow.github.io
 
 ## About [#](#table-of-contents)
 Made by G3Dev\
