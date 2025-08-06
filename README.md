@@ -1,7 +1,8 @@
 # Sprout
 
 A tool for visualising family trees.\
-You can run Sprout on Unix systems with the `run.sh` file and on Windows by using `run.bat`.
+You can run Sprout on Unix systems with the `run.sh` file and on Windows by using `run.bat`.\
+The app was also built for Linux and can be used by running `Sprout_Linux`.
 
 ## Table of contents
 + [How to use Sprout](#how-to-use-sprout)
