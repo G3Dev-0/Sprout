@@ -1,6 +1,7 @@
 # Sprout
 
-A tool for visualising family trees.
+A tool for visualising family trees.\
+You can run Sprout on Unix systems with the `run.sh` file and on Windows by using `run.bat`.
 
 ## Table of contents
 + [How to use Sprout](#how-to-use-sprout)
