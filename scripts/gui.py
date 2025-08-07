@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import messagebox
 from tkinter import filedialog
 from tkinter import ttk
-from tkcalendar import DateEntry
 from PIL import Image
 import webbrowser
 import os
