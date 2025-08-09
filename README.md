@@ -9,7 +9,7 @@ The app was also built for Linux and can be used by running `Sprout_Linux`.
 + [Editing the tree](#editing-the-tree)
     + [People](#people)
     + [Marriages](#marriages)
-    + [Tree settings](#tree-settings)
+    + [Tree Settings](#tree-settings)
 + [Saving and loading the tree in the Sprout app](#saving-and-loading-the-tree-in-the-sprout-app)
 + [Exporting your tree](#exporting-your-tree)
 + [Used technologies](#used-technologies)
@@ -19,7 +19,7 @@ The app was also built for Linux and can be used by running `Sprout_Linux`.
 When opening the app you find yourself in front of two views: the tree **editing view** (light blue) and the tree **preview view** (light green).
 
 ### Editing the tree [#](#table-of-contents)
-The editing view has three buttons named "People", "Marriages" and "Tree settings".\
+The editing view has three buttons named "People", "Marriages" and "Tree Settings".\
 Each of them shows a form where you can input information and save them.
 
 #### People [#](#table-of-contents)
@@ -33,15 +33,15 @@ That's because Sprout automatically figures out the families from people's paren
 
 If you first register a marriage and later add a children for that couple, the marriage will automatically be removed.
 
-#### Tree settings [#](#table-of-contents)
+#### Tree Settings [#](#table-of-contents)
 In this form you can specify a title for the tree (optional), a style and a person to focus on (optional).
 
 ### Saving and loading the tree in the Sprout app [#](#table-of-contents)
 You can save the tree data in the form of a JSON file and load it back in the Sprout app later.\
-Just go in the `File` menu, then click `Save tree` or `Load tree`.
+Just go in the `File` menu, then click `Save Tree` or `Load Tree`.
 
 ### Exporting your tree [#](#table-of-contents)
-Once your family tree is ready, you can export it as a PDF file by choosing `File > Export tree` in the dropdown menu.
+Once your family tree is ready, you can export it as a PDF file by choosing `File > Export Tree` in the dropdown menu.
 
 ## Used technologies [#](#table-of-contents)
 - **Python**\
