@@ -84,6 +84,7 @@ def get_or_generate_family_uuid(families:dict, parents_ids:tuple):
 def generate_dot_source(people:dict, marriages:dict, tree_title:str, tree_style:int, focused_person_id:str|None):
     # parse data to have a family structure where you have a list of couples (parents) associated with a tuple of siblings
     families = dict() # family_uuid (used for connectors) : [(parents), (siblings)]
+
     for person_id, person_data in people.items():
         parents_ids = (person_data[6], person_data[7])
 
@@ -101,6 +102,10 @@ def generate_dot_source(people:dict, marriages:dict, tree_title:str, tree_style:
 
         # register the updated family
         families[family_uuid] = [parents_ids, siblings_ids_string]
+
+    # putting marriages after so node style is not repeated
+    for marriage_id, marriage_data in marriages.items():
+        families[marriage_id] = [tuple(marriage_data[:2]), None]
 
     dot_source = ""
     
@@ -124,7 +129,15 @@ def generate_dot_source(people:dict, marriages:dict, tree_title:str, tree_style:
         node_style = ", rounded"
         splines = "true"
 
-    dot_source += f"\n\tgraph [bgcolor=\"grey94\" splines=\"{splines}\" pad=\"0.7\" nodesep=\"0.5\" ranksep=\"0.8\" rankdir=\"tb\"]"
+    dot_source += f"\n\tgraph ["
+    dot_source += f"\n\t\tbgcolor=\"grey94\""
+    dot_source += f"\n\t\tsplines=\"{splines}\""
+    dot_source += f"\n\t\tpad=\"0.7\""
+    dot_source += f"\n\t\tnodesep=\"0.5\""
+    dot_source += f"\n\t\tranksep=\"0.8\""
+    dot_source += f"\n\t\trankdir=\"tb\""
+    dot_source += f"\n\t]"
+
 
     # default node settings
     dot_source += "\n\tnode ["
@@ -148,66 +161,83 @@ def generate_dot_source(people:dict, marriages:dict, tree_title:str, tree_style:
         # parent 1
         parent_1_id = family_data[0][0]
         parent_2_id = family_data[0][1]
-        
-        # add connector node connection only if there is at least one parent to connect to the sibling
-        should_connecto_parent_to_sibling = parent_1_id != None or parent_2_id != None
 
-        # don't save people with no registered parents
-        if not should_connecto_parent_to_sibling: continue
-        
-        connector_style = get_connector_node_style(connector_id, edge_color)
+        # marriage
+        if family_data[1] == None:
+            dot_source += "\n\t{" + f"rank=\"same\"; {parent_1_id}; {parent_2_id}" + "}"
+            dot_source += f"\n\t{parent_1_id} -> {parent_2_id} [arrowsize=0 color=\"{edge_color}\"]"
 
-        def get_parent_to_connector_source(parent_1_id:str, connector_id:str, edge_color:str):
-            parent_1_part = ""
-            parent_1_node_style = None
-            if parent_1_id != None:
-                parent_1_part += f"{parent_1_id}:s -> {connector_id} [arrowsize=0 color=\"{edge_color}\"]"
+            parent_1_data = people.get(parent_1_id)
+            parent_1_node_style = get_person_node_style(parent_1_id, parent_1_data, focused_person_id == parent_1_id)
 
-                parent_1_data = people.get(parent_1_id)
-                parent_1_node_style = get_person_node_style(parent_1_id, parent_1_data, focused_person_id == parent_1_id)
+            parent_2_data = people.get(parent_2_id)
+            parent_2_node_style = get_person_node_style(parent_2_id, parent_2_data, focused_person_id == parent_2_id)
+
+            if not parent_1_node_style in dot_source:
+                dot_source += f"\n\t{parent_1_node_style}"
+            if not parent_2_node_style in dot_source:
+                dot_source += f"\n\t{parent_2_node_style}"
+        # family (marriage + siblings)
+        else:
+            # add connector node connection only if there is at least one parent to connect to the sibling
+            should_connecto_parent_to_sibling = parent_1_id != None or parent_2_id != None
+
+            # don't save people with no registered parents
+            if not should_connecto_parent_to_sibling: continue
             
-            return parent_1_part, parent_1_node_style
+            connector_style = get_connector_node_style(connector_id, edge_color)
 
-        # parent 1
-        parent_1_part, parent_1_node_style = get_parent_to_connector_source(parent_1_id, connector_id, edge_color)
+            def get_parent_to_connector_source(parent_1_id:str, connector_id:str, edge_color:str):
+                parent_1_part = ""
+                parent_1_node_style = None
+                if parent_1_id != None:
+                    parent_1_part += f"{parent_1_id}:s -> {connector_id} [arrowsize=0 color=\"{edge_color}\"]"
 
-        # parent 2
-        parent_2_part, parent_2_node_style = get_parent_to_connector_source(parent_2_id, connector_id, edge_color)
-        
-        # add parents dot code to source
-        dot_source += f"\n\t{parent_1_part}"
-        dot_source += f"\n\t{parent_2_part}"
+                    parent_1_data = people.get(parent_1_id)
+                    parent_1_node_style = get_person_node_style(parent_1_id, parent_1_data, focused_person_id == parent_1_id)
+                
+                return parent_1_part, parent_1_node_style
 
-        # siblings
-        # node_1 -> sibling_0_id:n, sibling_1_id:n [arrowsize=0.5 color="green"]
-        siblings_part = ""
+            # parent 1
+            parent_1_part, parent_1_node_style = get_parent_to_connector_source(parent_1_id, connector_id, edge_color)
 
-        siblings_ids = family_data[1]
-        # siblings_ids_string = ":n, ".join(siblings_ids) + ":n"
+            # parent 2
+            parent_2_part, parent_2_node_style = get_parent_to_connector_source(parent_2_id, connector_id, edge_color)
+            
+            # add parents dot code to source
+            dot_source += f"\n\t{parent_1_part}"
+            dot_source += f"\n\t{parent_2_part}"
 
-        def get_connector_to_sibling_source(sibling_id:str, connector_id:str, edge_color:str):
-            return f"\n\t{connector_id} -> {sibling_id}:n [arrowsize=0.5 color=\"{edge_color}\"]"
+            # siblings
+            # node_1 -> sibling_0_id:n, sibling_1_id:n [arrowsize=0.5 color="green"]
+            siblings_part = ""
 
-        # add connector node connection only if there is at least one parent to connect to the sibling
-        for sibling_id in siblings_ids:
-            siblings_part += get_connector_to_sibling_source(sibling_id, connector_id, edge_color)
+            siblings_ids = family_data[1]
+            # siblings_ids_string = ":n, ".join(siblings_ids) + ":n"
 
-        # add siblings dot code to source
-        dot_source += f"{siblings_part}"
+            def get_connector_to_sibling_source(sibling_id:str, connector_id:str, edge_color:str):
+                return f"\n\t{connector_id} -> {sibling_id}:n [arrowsize=0.5 color=\"{edge_color}\"]"
 
-        # add node style parts
-        # parent 1
-        if parent_1_node_style != None:
-            dot_source += f"\n\t{parent_1_node_style}"
-        # parent 2
-        if parent_2_node_style != None:
-            dot_source += f"\n\t{parent_2_node_style}"
-        # siblings
-        for sibling_id in siblings_ids:
-            dot_source += f"\n\t{get_person_node_style(sibling_id, people.get(sibling_id), focused_person_id == sibling_id)}"
-        # connectors
-        if connector_style != None:
-            dot_source += f"\n\t{connector_style}"
+            # add connector node connection only if there is at least one parent to connect to the sibling
+            for sibling_id in siblings_ids:
+                siblings_part += get_connector_to_sibling_source(sibling_id, connector_id, edge_color)
+
+            # add siblings dot code to source
+            dot_source += f"{siblings_part}"
+
+            # add node style parts
+            # parent 1
+            if parent_1_node_style != None:
+                dot_source += f"\n\t{parent_1_node_style}"
+            # parent 2
+            if parent_2_node_style != None:
+                dot_source += f"\n\t{parent_2_node_style}"
+            # siblings
+            for sibling_id in siblings_ids:
+                dot_source += f"\n\t{get_person_node_style(sibling_id, people.get(sibling_id), focused_person_id == sibling_id)}"
+            # connectors
+            if connector_style != None:
+                dot_source += f"\n\t{connector_style}"
     
     dot_source += "\n}"
     

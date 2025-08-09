@@ -7,6 +7,7 @@ import base64
 folder structure
 main
     scripts (SCRIPTS_PATH)
+        __pycache__
         gui.py
         io_utils.py
         tree.py
@@ -19,14 +20,14 @@ main
     run.sh
 """
 
-SCRIPTS_PATH = os.path.dirname(os.path.realpath(__file__)) # os.getcwd()
+SCRIPTS_PATH = os.getcwd() # os.path.dirname(os.path.realpath(__file__)) # os.getcwd()
 
-SPROUT_PATH = os.path.join(SCRIPTS_PATH, "../sprout")
+SPROUT_PATH = os.path.join(SCRIPTS_PATH, "sprout")
 
 IMAGES_PATH = os.path.join(SPROUT_PATH, "images")
 
 PREVIEW_PATH = os.path.join(IMAGES_PATH, "tmp.png") # used to set the tree preview label image, then it gets deleted as it gets stored in the label
-RESIZED_IMAGES_PATH = os.path.join(IMAGES_PATH, "/resized") # here are stored the resized images for the tree, they MUST stay there, otherwise the reference in the dot file doesn't work
+RESIZED_IMAGES_PATH = os.path.join(IMAGES_PATH, "resized") # here are stored the resized images for the tree, they MUST stay there, otherwise the reference in the dot file doesn't work
 
 UNKNOWN_IMAGE_PATH = os.path.join(IMAGES_PATH, "unknown.png") # used as a placeholder for nodes with wrong image path
 

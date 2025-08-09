@@ -14,16 +14,35 @@ import io_utils
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
 
+# changed_after_last_save = False
+tree_title, tree_style_id, focused_person_id = None, None, None
+
 # CREATE WINDOW
 window = tk.Tk()
 window.title("Sprout")
 window.geometry(f"{WINDOW_WIDTH}x{WINDOW_HEIGHT}")
 
+# answered_to_save_choice = True
 def on_destroy(event=None):
+    # global answered_to_save_choice
     """
     Deletes the __pycache__ folder.\\
     Call this when closing the program.
     """
+
+    # if not answered_to_save_choice and (not is_data_empty() or changed_after_last_save):
+    #     # save_choice = messagebox.askyesnocancel(title="Save before leaving", message="The program has some unsaved data loaded.\nDo you want to save it before leaving the app?\nPress cancel to stay in the app.", default="yes")
+    #     save_choice = messagebox.askyesno(title="Save before leaving", message="The program has some unsaved data loaded.\nDo you want to save it before leaving the app?", default="yes")
+    #     answered_to_save_choice = True
+    #     # save before leaving, then go to LEAVE SECTION
+    #     if save_choice:
+    #         save_tree()
+        # don't leave the app
+        # elif save_choice == None:
+        #     answered_to_save_choice = False
+        #     return
+        
+    # LEAVE SECTION
     pycache_folder_path = os.path.join(SCRIPTS_PATH, "__pycache__").rstrip("/")
     if os.path.exists(pycache_folder_path):
         shutil.rmtree(pycache_folder_path)
@@ -78,11 +97,15 @@ def should_erase_data():
     return messagebox.askyesno("Erase Data", "Do you want to erase all the unsaved data?", icon="warning", default="no")
 
 def erase_data():
+    global changed_after_last_save
+
     people.clear()
     marriages.clear()
     tree_title_var.set("")
     tree_style_var.set(STYLES.get(0))
     focused_person_var.set(NON_SELECTED_PERSON)
+
+    changed_after_last_save = False
 
     reload_tree_preview()
 
@@ -170,9 +193,18 @@ def reset_preview():
     preview_label.config(image="")
 
 def reload_tree_preview(event=None):
+    global tree_title, focused_person_id, changed_after_last_save
+
     if is_data_empty():
         reset_preview()
         return
+    
+
+    changed_tree_title = tree_title_var.get() != tree_title
+    changed_focused_person = focused_person_var.get() != get_person_query_data(people.get(focused_person_id))
+    # if the focused_person was changed
+    if changed_tree_title or changed_focused_person:
+        changed_after_last_save = True
 
     dot_source = tree.generate_dot_source(people, marriages, tree_title_var.get(), tree_style_id, people_ids.get(focused_person_var.get()))
     
@@ -191,13 +223,19 @@ def reload_tree_preview(event=None):
 
 # drop down menu functions
 def new_tree():
+    global changed_after_last_save
+
     optional_data_erasement()
 
     update_people_comboboxes()
     update_marriages_comboboxes()
     empty_fields()
+    
+    changed_after_last_save = False
 
 def load_tree():
+    global changed_after_last_save
+
     path = filedialog.askopenfilename(
         title="Open Tree Data",
         initialdir=SPROUT_PATH,
@@ -233,7 +271,11 @@ def load_tree():
 
     reload_tree_preview()
 
+    changed_after_last_save = False
+
 def save_tree():
+    global changed_after_last_save
+
     data = {
         "people": people,
         "marriages": marriages,
@@ -250,8 +292,10 @@ def save_tree():
         filetypes=[("JSON files", "*.json"), ("All files", "*.*")]
     )
 
-    if path != None:
+    if path != None or len(path) == 0:
         io_utils.save_data(path, data)
+
+        changed_after_last_save = False
 
 def export_tree():
     dot_source = tree.generate_dot_source(people, marriages, tree_title_var.get(), tree_style_id, people_ids.get(focused_person_var.get()))
@@ -329,6 +373,7 @@ def show_tree_settings_panel():
     empty_fields()
 
 def get_person_query_data(person_data:tuple[str]) -> str:
+    if person_data == None: return None
     return get_person_query_params(person_data[0], person_data[1], person_data[2], person_data[4])
 
 def get_person_query_params(name:str, alias:str, surname:str, birth_date:str) -> str:
@@ -336,6 +381,7 @@ def get_person_query_params(name:str, alias:str, surname:str, birth_date:str) ->
     return f"{name}{alias_str} {surname}" + (f" ({birth_date})" if len(birth_date.strip()) > 0 else "")
 
 def get_marriage_query_data(marriage_data:tuple[str]) -> str:
+    if marriage_data == None: return None
     return get_marriage_query_params(marriage_data[0], marriage_data[1], marriage_data[2])
 
 def get_marriage_query_params(person_1_id:str, person_2_id:str, date:str) -> str:
@@ -421,7 +467,7 @@ def select_person_picture():
 #     death_date_cal.delete(0, 'end')
 
 def save_person():
-    global editing_person_id
+    global editing_person_id, changed_after_last_save
 
     # get field values
     name = person_name_var.get().strip()
@@ -489,8 +535,10 @@ def save_person():
 
     reload_tree_preview()
 
+    changed_after_last_save = True
+
 def remove_person():
-    global editing_person_id
+    global editing_person_id, changed_after_last_save
 
     if editing_person_id == None: return
     
@@ -513,6 +561,7 @@ def remove_person():
     empty_fields()
 
     editing_person_id = None
+    changed_after_last_save = True
 
     reload_tree_preview()
 
@@ -537,7 +586,7 @@ def load_marriage_for_edit(event=None):
 #     marriage_date_cal.delete(0, 'end')
 
 def save_marriage():
-    global editing_marriage_id
+    global editing_marriage_id, changed_after_last_save
 
     # get field values
     marriage_people = sorted([marriage_person1_var.get().strip(), marriage_person2_var.get().strip()])
@@ -600,11 +649,12 @@ def save_marriage():
     empty_fields()
 
     editing_marriage_id = None
+    changed_after_last_save = True
 
     reload_tree_preview()
 
 def remove_marriage():
-    global editing_marriage_id
+    global editing_marriage_id, changed_after_last_save
 
     if editing_marriage_id == None: return
     
@@ -617,12 +667,18 @@ def remove_marriage():
     empty_fields()
 
     editing_marriage_id = None
+    changed_after_last_save = True
 
     reload_tree_preview()
 
 def update_tree_style_id(event=None):
-    global tree_style_id
+    global tree_style_id, changed_after_last_save
     
+    # if the style didn't change don't even look for the id, it's already set
+    if tree_style_var.get() == STYLES.get(tree_style_id): return
+    # else
+    changed_after_last_save = True
+
     tree_style_id = None
     for style_id, style_name in STYLES.items():
         if style_name == tree_style_var.get():
