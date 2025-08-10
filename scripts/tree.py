@@ -3,7 +3,7 @@ from utils import *
 
 import pydot
 
-# gender based coloring
+# sex based coloring
 MALE_COLOR_STYLE = "color=\"blue\"\n\t\tfillcolor=\"lightblue\""
 FEMALE_COLOR_STYLE = "color=\"red\"\n\t\tfillcolor=\"pink\""
 UNKNOWN_COLOR_STYLE = "color=\"black\"\n\t\tfillcolor=\"darkgrey\""
@@ -40,7 +40,7 @@ def get_person_node_style(person_id:str, person_data:list, focused:bool) -> str:
         name_alias_surname += f"+{death_date}"
     name_alias_surname += "\""
 
-    gender = person_data[3]
+    sex = person_data[3]
     image_path = person_data[8]
     
     node_style = f"{person_id} ["
@@ -49,11 +49,11 @@ def get_person_node_style(person_id:str, person_data:list, focused:bool) -> str:
     # set color
     if focused:
         node_style += f"\n\t\t{FOCUSED_COLOR_STYLE}"
-    elif gender == GENDER_MALE:
+    elif sex == GENDER_MALE:
         node_style += f"\n\t\t{MALE_COLOR_STYLE}"
-    elif gender == GENDER_FEMALE:
+    elif sex == GENDER_FEMALE:
         node_style += f"\n\t\t{FEMALE_COLOR_STYLE}"
-    elif gender == GENDER_UNKNOWN:
+    elif sex == GENDER_UNKNOWN:
         node_style += f"\n\t\t{UNKNOWN_COLOR_STYLE}"
     # set the image if needed
     if len(image_path.strip()) > 0:
