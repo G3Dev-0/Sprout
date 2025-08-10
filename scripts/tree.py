@@ -49,11 +49,11 @@ def get_person_node_style(person_id:str, person_data:list, focused:bool) -> str:
     # set color
     if focused:
         node_style += f"\n\t\t{FOCUSED_COLOR_STYLE}"
-    elif sex == GENDER_MALE:
+    elif sex == SEX_MALE:
         node_style += f"\n\t\t{MALE_COLOR_STYLE}"
-    elif sex == GENDER_FEMALE:
+    elif sex == SEX_FEMALE:
         node_style += f"\n\t\t{FEMALE_COLOR_STYLE}"
-    elif sex == GENDER_UNKNOWN:
+    elif sex == SEX_UNKNOWN:
         node_style += f"\n\t\t{UNKNOWN_COLOR_STYLE}"
     # set the image if needed
     if len(image_path.strip()) > 0:
