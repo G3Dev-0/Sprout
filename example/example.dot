@@ -1,5 +1,5 @@
 digraph {
-	label="The Brown Family
+	label="The Brown Family Tree
 
 " labelloc="t" fontsize="44" fontname="Consolas"
 	graph [
@@ -19,89 +19,111 @@ digraph {
 		penwidth=2
 		fontname="Consolas"
 	]
-	"6d8bae8f_572d_4377_a720_270573a9f0bc":s -> "connector_f276c9e6_ca75_4202_835d_62c08b78a52b" [arrowsize=0 color="#FFC423"]
-	"a5f1fdea_4d83_4a2f_b046_5179f6acfb16":s -> "connector_f276c9e6_ca75_4202_835d_62c08b78a52b" [arrowsize=0 color="#FFC423"]
-	"connector_f276c9e6_ca75_4202_835d_62c08b78a52b" -> "8c465f1a_3cbb_4c7c_ba41_78458bc64a0c":n [arrowsize=0.5 color="#FFC423"]
-	"connector_f276c9e6_ca75_4202_835d_62c08b78a52b" -> "103c134f_40c0_40e3_afad_9280f29a73c3":n [arrowsize=0.5 color="#FFC423"]
-	"connector_f276c9e6_ca75_4202_835d_62c08b78a52b" -> "797452c3_1812_4b1b_9bbd_1a4693e35963":n [arrowsize=0.5 color="#FFC423"]
-	"6d8bae8f_572d_4377_a720_270573a9f0bc" [
+	"193a544b_7373_4e21_ba10_1695a397e9de"
+	"193a544b_7373_4e21_ba10_1695a397e9de" [
 		label="Mary Jones
 *1951"
 		color="red"
 		fillcolor="pink"
 	]
-	"a5f1fdea_4d83_4a2f_b046_5179f6acfb16" [
+	"46789ddd_d1cd_485d_80f6_dfd496dba986"
+	"46789ddd_d1cd_485d_80f6_dfd496dba986" [
 		label="Jack Brown
 *1950"
 		color="blue"
 		fillcolor="lightblue"
 	]
-	"8c465f1a_3cbb_4c7c_ba41_78458bc64a0c" [
-		label="George Brown
-*1980"
-		color="blue"
-		fillcolor="lightblue"
-	]
-	"103c134f_40c0_40e3_afad_9280f29a73c3" [
-		label="Maggie Brown
-*1974"
+	"193a544b_7373_4e21_ba10_1695a397e9de":s -> "connector_1c527b73_63fd_4696_aa46_5a769118ef71" [arrowsize=0 color="#A85426"]
+	"46789ddd_d1cd_485d_80f6_dfd496dba986":s -> "connector_1c527b73_63fd_4696_aa46_5a769118ef71" [arrowsize=0 color="#A85426"]
+	"connector_1c527b73_63fd_4696_aa46_5a769118ef71" -> "4b8e732f_777f_45b0_b500_f4afc5129ca3":n [arrowsize=0.5 color="#A85426"]
+	"connector_1c527b73_63fd_4696_aa46_5a769118ef71" -> "ad4bb940_2ec1_4853_976c_e024bf177552":n [arrowsize=0.5 color="#A85426"]
+	"connector_1c527b73_63fd_4696_aa46_5a769118ef71" -> "ed35ee68_7eb6_45de_95de_a59ac310726d":n [arrowsize=0.5 color="#A85426"]
+	"193a544b_7373_4e21_ba10_1695a397e9de" [
+		label="Mary Jones
+*1951"
 		color="red"
 		fillcolor="pink"
 	]
-	"797452c3_1812_4b1b_9bbd_1a4693e35963" [
+	"46789ddd_d1cd_485d_80f6_dfd496dba986" [
+		label="Jack Brown
+*1950"
+		color="blue"
+		fillcolor="lightblue"
+	]
+	"4b8e732f_777f_45b0_b500_f4afc5129ca3" [
 		label="Leonard Brown
 *1970"
 		color="blue"
 		fillcolor="lightblue"
 	]
-	"connector_f276c9e6_ca75_4202_835d_62c08b78a52b" [
-		label=""
-		color="#FFC423"
-		fillcolor="#FFC423"
-		width=0.1
-		height=0.1
-	]
-	"37ccc8b0_85c6_4331_892e_8cae635290c7":s -> "connector_96652692_5a25_4c93_97cf_a2def02a7ec8" [arrowsize=0 color="#EF6502"]
-	"8c465f1a_3cbb_4c7c_ba41_78458bc64a0c":s -> "connector_96652692_5a25_4c93_97cf_a2def02a7ec8" [arrowsize=0 color="#EF6502"]
-	"connector_96652692_5a25_4c93_97cf_a2def02a7ec8" -> "a1dd8d9e_3533_437a_8362_5e5c9239ec6e":n [arrowsize=0.5 color="#EF6502"]
-	"connector_96652692_5a25_4c93_97cf_a2def02a7ec8" -> "3af1d75a_d42a_42c5_b657_0ec7a3a0a658":n [arrowsize=0.5 color="#EF6502"]
-	"37ccc8b0_85c6_4331_892e_8cae635290c7" [
-		label="Claire Martin
-*1979"
+	"ad4bb940_2ec1_4853_976c_e024bf177552" [
+		label="Maggie Brown
+*1974"
 		color="red"
 		fillcolor="pink"
 	]
-	"8c465f1a_3cbb_4c7c_ba41_78458bc64a0c" [
+	"ed35ee68_7eb6_45de_95de_a59ac310726d" [
 		label="George Brown
 *1980"
 		color="blue"
 		fillcolor="lightblue"
 	]
-	"a1dd8d9e_3533_437a_8362_5e5c9239ec6e" [
-		label="Greg Brown
-*2005"
-		color="orange"
-		fillcolor="gold"
-	]
-	"3af1d75a_d42a_42c5_b657_0ec7a3a0a658" [
-		label="Matthew \"Matt\" Brown
-*2000"
-		color="blue"
-		fillcolor="lightblue"
-	]
-	"connector_96652692_5a25_4c93_97cf_a2def02a7ec8" [
+	"connector_1c527b73_63fd_4696_aa46_5a769118ef71" [
 		label=""
-		color="#EF6502"
-		fillcolor="#EF6502"
+		color="#A85426"
+		fillcolor="#A85426"
 		width=0.1
 		height=0.1
 	]
-	{rank="same"; "103c134f_40c0_40e3_afad_9280f29a73c3"; "fdf086bb_a68b_478c_b9f1_2d3890e29c47"}
-	"103c134f_40c0_40e3_afad_9280f29a73c3" -> "fdf086bb_a68b_478c_b9f1_2d3890e29c47" [label="1999" arrowsize=0 color="#207EBC"]
-	"fdf086bb_a68b_478c_b9f1_2d3890e29c47" [
+	"56fbea05_6ded_4eb4_93ad_94f744bd9edb"
+	"56fbea05_6ded_4eb4_93ad_94f744bd9edb" [
 		label="Markus \"Mark\" White
 *1974"
 		color="blue"
 		fillcolor="lightblue"
 	]
+	"a5b3e780_6978_4106_97a5_f3bfe569824e"
+	"a5b3e780_6978_4106_97a5_f3bfe569824e" [
+		label="Claire Martin
+*1979"
+		color="red"
+		fillcolor="pink"
+	]
+	"a5b3e780_6978_4106_97a5_f3bfe569824e":s -> "connector_8cd34b39_8288_47d9_b90c_6c4935b30b17" [arrowsize=0 color="#619E1C"]
+	"ed35ee68_7eb6_45de_95de_a59ac310726d":s -> "connector_8cd34b39_8288_47d9_b90c_6c4935b30b17" [arrowsize=0 color="#619E1C"]
+	"connector_8cd34b39_8288_47d9_b90c_6c4935b30b17" -> "5f928117_6605_4fc8_bdaa_142bb6c64fdf":n [arrowsize=0.5 color="#619E1C"]
+	"connector_8cd34b39_8288_47d9_b90c_6c4935b30b17" -> "ff0ea163_6c2f_421e_a75e_9316023eb06a":n [arrowsize=0.5 color="#619E1C"]
+	"a5b3e780_6978_4106_97a5_f3bfe569824e" [
+		label="Claire Martin
+*1979"
+		color="red"
+		fillcolor="pink"
+	]
+	"ed35ee68_7eb6_45de_95de_a59ac310726d" [
+		label="George Brown
+*1980"
+		color="blue"
+		fillcolor="lightblue"
+	]
+	"5f928117_6605_4fc8_bdaa_142bb6c64fdf" [
+		label="Matthew \"Matt\" Brown
+*2000"
+		color="blue"
+		fillcolor="lightblue"
+	]
+	"ff0ea163_6c2f_421e_a75e_9316023eb06a" [
+		label="Greg Brown
+*2005"
+		color="orange"
+		fillcolor="gold"
+	]
+	"connector_8cd34b39_8288_47d9_b90c_6c4935b30b17" [
+		label=""
+		color="#619E1C"
+		fillcolor="#619E1C"
+		width=0.1
+		height=0.1
+	]
+	{rank="same"; "ad4bb940_2ec1_4853_976c_e024bf177552"; "56fbea05_6ded_4eb4_93ad_94f744bd9edb"}
+	"ad4bb940_2ec1_4853_976c_e024bf177552" -> "56fbea05_6ded_4eb4_93ad_94f744bd9edb" [label="1999" arrowsize=0 color="#00BABA"]
 }
