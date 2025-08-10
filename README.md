@@ -6,10 +6,6 @@ The app was also built for Linux and can be used by running `Sprout_Linux`.
 
 Showcase video on [YouTube](https://youtu.be/y1TMXSldNgQ).
 
-#### Known bugs:
-- Editing a person, doesn't update the focused person combobox
-- When exporting a tree, if you only save the pdf and not the dot file too, the preview is reset and you have to update it to make it show up again
-
 ## Table of contents
 + [How to use Sprout](#how-to-use-sprout)
 + [Editing the tree](#editing-the-tree)
