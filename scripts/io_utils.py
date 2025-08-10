@@ -26,7 +26,7 @@ def load_data(path:str):
     """
     Loads the data from a json file.\
     
-    Expects:
+    Returns:
     data = {
         "people": people,
         "marriages": marriages,
