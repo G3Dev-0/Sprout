@@ -53,7 +53,7 @@ window.bind("<Destroy>", on_destroy)
 
 # important
 tree_style = 0
-people = dict() # id -> (name, alias, surname, gender, birth_date, death_date, parent_1_id, parent_2_id, picture_path)
+people = dict() # id -> (name, alias, surname, sex, birth_date, death_date, parent_1_id, parent_2_id, picture_path)
 marriages = dict() # id -> (person_1_id, person_2_id, marriage_date)
 
 people_ids = dict() # Name Surname (birth_date) -> id
@@ -66,7 +66,7 @@ editing_marriage_id = None
 selected_person_var = tk.StringVar(window)
 person_name_var = tk.StringVar(window)
 person_surname_var = tk.StringVar(window)
-person_gender_var = tk.StringVar(window)
+person_sex_var = tk.StringVar(window)
 person_alias_var = tk.StringVar(window)
 person_birth_date_var = tk.StringVar(window)
 person_death_date_var = tk.StringVar(window)
@@ -137,7 +137,7 @@ def empty_fields():
     person_selector_combobox.set(NON_SELECTED_PERSON)
     person_name_var.set("")
     person_surname_var.set("")
-    person_gender_var.set(NON_SELECTED_GENDER)
+    person_sex_var.set(NON_SELECTED_GENDER)
     person_alias_var.set("")
     person_birth_date_var.set("")
     person_death_date_var.set("")
@@ -389,13 +389,13 @@ def get_marriage_query_params(person_1_id:str, person_2_id:str, date:str) -> str
     return f"{person_1} ~ {person_2}" + (f" | ({date})" if len(date.strip()) > 0 else "")
 
 # people form functions
-def get_gender_id(person_gender_name):
-    person_gender_id = GENDERS.get(NON_SELECTED_GENDER)
-    for gender_id, gender_name in GENDERS.items():
-        if gender_name == person_gender_name:
-            person_gender_id = gender_id
+def get_sex_id(person_sex_name):
+    person_sex_id = GENDERS.get(NON_SELECTED_GENDER)
+    for sex_id, sex_name in GENDERS.items():
+        if sex_name == person_sex_name:
+            person_sex_id = sex_id
             break
-    return person_gender_id
+    return person_sex_id
 
 def load_person_for_edit(event=None):
     global editing_person_id
@@ -412,7 +412,7 @@ def load_person_for_edit(event=None):
     person_name_var.set(editing_person[0])
     person_alias_var.set(editing_person[1])
     person_surname_var.set(editing_person[2])
-    person_gender_var.set(GENDERS.get(editing_person[3])) #* gender id to gender name when loading
+    person_sex_var.set(GENDERS.get(editing_person[3])) #* sex id to sex name when loading
     person_birth_date_var.set(editing_person[4])
     person_death_date_var.set(editing_person[5])
 
@@ -477,7 +477,7 @@ def save_person():
         messagebox.showinfo("Can't save this person", "A person must have at least a name and a surname")
         return
 
-    gender = get_gender_id(person_gender_var.get()) #* gender name to gender id when saving
+    sex = get_sex_id(person_sex_var.get()) #* sex name to sex id when saving
     alias = person_alias_var.get().strip()
     birth_date = person_birth_date_var.get()
     death_date = person_death_date_var.get()
@@ -512,7 +512,7 @@ def save_person():
         messagebox.showinfo("Can't save this person", "Another person with the same name and surname was found")
         return
 
-    people.update({id : (name, alias, surname, gender, birth_date, death_date, parent_1_id, parent_2_id, picture_path)})
+    people.update({id : (name, alias, surname, sex, birth_date, death_date, parent_1_id, parent_2_id, picture_path)})
 
     # remove the marriage between two people who have been set as parents here
     if parent_1_id != None and parent_2_id != None:
@@ -820,11 +820,11 @@ tk.Entry(person_form_frame, textvariable=person_name_var, width=entry_width).gri
 tk.Label(person_form_frame, text="Surname:", bg="lightgray", font=label_font).grid(row=1, column=0, sticky="w", pady=2, padx=5)
 tk.Entry(person_form_frame, textvariable=person_surname_var, width=entry_width).grid(row=1, column=1, sticky="ew", pady=2, padx=5)
 
-# New: Row 2: Gender
-tk.Label(person_form_frame, text="Gender:", bg="lightgray", font=label_font).grid(row=2, column=0, sticky="w", pady=2, padx=5)
-gender_combobox = ttk.Combobox(person_form_frame, textvariable=person_gender_var, state="readonly", width=entry_width)
-gender_combobox['values'] = tuple(GENDERS.values())
-gender_combobox.grid(row=2, column=1, sticky="ew", pady=2, padx=5)
+# New: Row 2: Sex
+tk.Label(person_form_frame, text="Sex:", bg="lightgray", font=label_font).grid(row=2, column=0, sticky="w", pady=2, padx=5)
+sex_combobox = ttk.Combobox(person_form_frame, textvariable=person_sex_var, state="readonly", width=entry_width)
+sex_combobox['values'] = tuple(GENDERS.values())
+sex_combobox.grid(row=2, column=1, sticky="ew", pady=2, padx=5)
 
 # Row 3: Alias
 tk.Label(person_form_frame, text="Alias:", bg="lightgray", font=label_font).grid(row=3, column=0, sticky="w", pady=2, padx=5)
