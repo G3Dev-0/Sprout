@@ -193,17 +193,23 @@ def reset_preview():
     preview_label.config(image="")
 
 def reload_tree_preview(event=None):
-    global tree_title, focused_person_id, changed_after_last_save
+    global tree_title, focused_person_id#, changed_after_last_save
 
     if is_data_empty():
         reset_preview()
         return    
 
-    changed_tree_title = tree_title_var.get() != tree_title
-    changed_focused_person = focused_person_var.get() != get_person_query_data(people.get(focused_person_id))
+    # changed_tree_title = tree_title_var.get() != tree_title
+    # changed_focused_person = focused_person_var.get() != get_person_query_data(people.get(focused_person_id))
     # if the focused_person was changed
-    if changed_tree_title or changed_focused_person:
-        changed_after_last_save = True
+    # if changed_tree_title or changed_focused_person:
+    #     changed_after_last_save = True
+    
+    # get the focused person id
+    for person_id, person_data in people.items():
+        if focused_person_var.get() == get_person_query_data(person_data):
+            focused_person_id = person_id
+            break
 
     dot_source = tree.generate_dot_source(people, marriages, tree_title_var.get(), tree_style_id, people_ids.get(focused_person_var.get()))
     
@@ -525,6 +531,11 @@ def save_person():
                 break # there is no need to check the rest of the dictionnary as you can only register one marriage with two people
         if marriage_to_remove_id != None:
             marriages.pop(marriage_to_remove_id)
+
+    # update the focused person query (otherwise the selection is canceled)
+    if editing_person_id != None:
+        if focused_person_id == editing_person_id:
+            focused_person_var.set(get_person_query_data(people.get(editing_person_id)))
 
     update_people_comboboxes()
     update_marriages_comboboxes()
