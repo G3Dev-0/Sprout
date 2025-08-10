@@ -390,8 +390,8 @@ def get_marriage_query_params(person_1_id:str, person_2_id:str, date:str) -> str
 
 # people form functions
 def get_sex_id(person_sex_name):
-    person_sex_id = GENDERS.get(NON_SELECTED_GENDER)
-    for sex_id, sex_name in GENDERS.items():
+    person_sex_id = SEX.get(NON_SELECTED_GENDER)
+    for sex_id, sex_name in SEX.items():
         if sex_name == person_sex_name:
             person_sex_id = sex_id
             break
@@ -412,7 +412,7 @@ def load_person_for_edit(event=None):
     person_name_var.set(editing_person[0])
     person_alias_var.set(editing_person[1])
     person_surname_var.set(editing_person[2])
-    person_sex_var.set(GENDERS.get(editing_person[3])) #* sex id to sex name when loading
+    person_sex_var.set(SEX.get(editing_person[3])) #* sex id to sex name when loading
     person_birth_date_var.set(editing_person[4])
     person_death_date_var.set(editing_person[5])
 
@@ -823,7 +823,7 @@ tk.Entry(person_form_frame, textvariable=person_surname_var, width=entry_width).
 # New: Row 2: Sex
 tk.Label(person_form_frame, text="Sex:", bg="lightgray", font=label_font).grid(row=2, column=0, sticky="w", pady=2, padx=5)
 sex_combobox = ttk.Combobox(person_form_frame, textvariable=person_sex_var, state="readonly", width=entry_width)
-sex_combobox['values'] = tuple(GENDERS.values())
+sex_combobox['values'] = tuple(SEX.values())
 sex_combobox.grid(row=2, column=1, sticky="ew", pady=2, padx=5)
 
 # Row 3: Alias
