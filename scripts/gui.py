@@ -197,8 +197,7 @@ def reload_tree_preview(event=None):
 
     if is_data_empty():
         reset_preview()
-        return
-    
+        return    
 
     changed_tree_title = tree_title_var.get() != tree_title
     changed_focused_person = focused_person_var.get() != get_person_query_data(people.get(focused_person_id))

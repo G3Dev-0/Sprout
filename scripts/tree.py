@@ -105,7 +105,7 @@ def generate_dot_source(people:dict, marriages:dict, tree_title:str, tree_style:
 
     # putting marriages after so node style is not repeated
     for marriage_id, marriage_data in marriages.items():
-        families[marriage_id] = [tuple(marriage_data[:2]), None]
+        families[marriage_id] = [tuple(marriage_data[:2]), (None, marriage_data[2])] # [(person_1_id, person_2_id), (None, marriage_date)] # None is there to make it possible to distinguish a marriage from a family with children
 
     dot_source = ""
     
@@ -149,6 +149,7 @@ def generate_dot_source(people:dict, marriages:dict, tree_title:str, tree_style:
     # default node settings
     dot_source += "\n\tedge ["
     dot_source += "\n\t\tpenwidth=2"
+    dot_source += "\n\t\tfontname=\"Consolas\""
     dot_source += "\n\t]"
     
     for family_id, family_data in families.items():
@@ -163,9 +164,11 @@ def generate_dot_source(people:dict, marriages:dict, tree_title:str, tree_style:
         parent_2_id = family_data[0][1]
 
         # marriage
-        if family_data[1] == None:
+        if family_data[1][0] == None:
+            marriage_date = family_data[1][1]
+
             dot_source += "\n\t{" + f"rank=\"same\"; {parent_1_id}; {parent_2_id}" + "}"
-            dot_source += f"\n\t{parent_1_id} -> {parent_2_id} [arrowsize=0 color=\"{edge_color}\"]"
+            dot_source += f"\n\t{parent_1_id} -> {parent_2_id} [label=\"{marriage_date}\" arrowsize=0 color=\"{edge_color}\"]"
 
             parent_1_data = people.get(parent_1_id)
             parent_1_node_style = get_person_node_style(parent_1_id, parent_1_data, focused_person_id == parent_1_id)
