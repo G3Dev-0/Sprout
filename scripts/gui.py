@@ -137,7 +137,7 @@ def empty_fields():
     person_selector_combobox.set(NON_SELECTED_PERSON)
     person_name_var.set("")
     person_surname_var.set("")
-    person_sex_var.set(NON_SELECTED_GENDER)
+    person_sex_var.set(NON_SELECTED_SEX)
     person_alias_var.set("")
     person_birth_date_var.set("")
     person_death_date_var.set("")
@@ -390,7 +390,7 @@ def get_marriage_query_params(person_1_id:str, person_2_id:str, date:str) -> str
 
 # people form functions
 def get_sex_id(person_sex_name):
-    person_sex_id = SEX.get(NON_SELECTED_GENDER)
+    person_sex_id = SEX.get(NON_SELECTED_SEX)
     for sex_id, sex_name in SEX.items():
         if sex_name == person_sex_name:
             person_sex_id = sex_id
