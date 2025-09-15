@@ -7,15 +7,15 @@ The app was also built for Linux and can be used by running `Sprout_Linux`.
 Showcase video on [YouTube](https://youtu.be/y1TMXSldNgQ).
 
 ## Table of contents
-+ [How to use Sprout](#how-to-use-sprout)
-+ [Editing the tree](#editing-the-tree)
-    + [People](#people)
-    + [Marriages](#marriages)
-    + [Tree Settings](#tree-settings)
-+ [Saving and loading the tree in the Sprout app](#saving-and-loading-the-tree-in-the-sprout-app)
-+ [Exporting your tree](#exporting-your-tree)
-+ [Used technologies](#used-technologies)
-+ [About](#about)
++ [How to use Sprout](#how-to-use-sprout-)
++ [Editing the tree](#editing-the-tree-)
+    + [People](#people-)
+    + [Marriages](#marriages-)
+    + [Tree Settings](#tree-settings-)
++ [Saving and loading the tree in the Sprout app](#saving-and-loading-the-tree-in-the-sprout-app-)
++ [Exporting your tree](#exporting-your-tree-)
++ [Used technologies](#used-technologies-)
++ [About](#about-)
 
 ## How to use Sprout [#](#table-of-contents)
 When opening the app you find yourself in front of two views: the tree **editing view** (light blue) and the tree **preview view** (light green).
